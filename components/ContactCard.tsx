@@ -18,11 +18,11 @@ export default function ContactCard({ contact, onClick }: ContactCardProps) {
         </Col>
       </Card.Header>
       <Card.Divider />
-      <Card.Body>
+      <Card.Body css={{ p: 0 }}>
         <Card.Image
           src={contact.avatar}
-          objectFit="contain"
-          width={240}
+          objectFit="cover"
+          width="100%"
           height="100%"
           alt={`${contact.name}'s avatar image`}
         />
