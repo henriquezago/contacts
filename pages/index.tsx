@@ -17,6 +17,9 @@ function Home() {
       </Head>
 
       <main className={styles.main}>
+        <h1>
+          Contacts
+        </h1>
         <ContactList contacts={contacts} onEdit={updateContact} onDelete={deleteContact} />
       </main>
     </div>
