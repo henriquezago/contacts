@@ -1,0 +1,14 @@
+.list {
+  display: flex;
+  flex-direction: column;
+
+  li {
+    margin-bottom: 1rem;
+  }
+}
+
+.contactWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
