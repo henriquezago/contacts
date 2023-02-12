@@ -35,7 +35,7 @@ export default function ContactModalForm({ contact, onSave, onCancel }: ContactM
       <ImageSelect url={avatar} onChange={newImage => setAvatar(newImage)} />
 
       <div className={styles.contactDetails}>
-        <Input label="Name" value={name} onChange={event => setName(event.target.value)} />
+        <Input name="name" label="Name" value={name} onChange={event => setName(event.target.value)} />
 
         <Input label="Email" type="email" value={email} onChange={event => setEmail(event.target.value)} />
 

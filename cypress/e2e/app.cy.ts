@@ -1,24 +1,46 @@
-/* eslint-disable */
-// Disable ESLint to prevent failing linting inside the Next.js repo.
-// If you're using ESLint on your project, we recommend installing the ESLint Cypress plugin instead:
-// https://github.com/cypress-io/eslint-plugin-cypress
+//@ts-ignore
+import * as mockContact from "../fixtures/contact.json";
 
-// Cypress E2E Test
-describe('Navigation', () => {
-  it('should navigate to the about page', () => {
-    // Start from the index page
-    cy.visit('http://localhost:3000/')
+function mockContactsList() {
+  cy.intercept("GET", "/api/contacts", { fixture: "contacts.json" }).as(
+    "getData"
+  );
+}
 
-    // Find a link with an href attribute containing "about" and click it
-    cy.get('a[href*="about"]').click()
+function mockContactUpdate() {
+  cy.intercept("PUT", "/api/contacts*", { fixture: "contact.json" }).as(
+    "getData"
+  );
+}
 
-    // The new url should include "/about"
-    cy.url().should('include', '/about')
+describe("Contacts", () => {
+  it("should open a contact's details", () => {
+    mockContactsList();
 
-    // The new page should contain an h1 with "About page"
-    cy.get('h1').contains('About Page')
-  })
-})
+    cy.visit("http://localhost:3000/");
 
-// Prevent TypeScript from reading file as legacy script
-export {}
+    cy.get("h4").contains("Roosevelt Green").click();
+
+    cy.get("p").contains("Phone: 434343434");
+    cy.get("p").contains("Email: Tyshawn_Bahringer89@yahoo.com");
+    cy.get("p").contains("Birthday: 44/44/4444");
+    cy.get("p").contains("Created at: Thu Feb 02 2023");
+  });
+
+  it("should edit a contact's details", () => {
+    mockContactsList();
+    mockContactUpdate();
+
+    cy.visit("http://localhost:3000/");
+
+    cy.get("h4").contains("Roosevelt Green").click();
+    cy.get("button").contains("Edit").click();
+
+    cy.get("input[name='name']").clear().type(mockContact.name);
+    cy.get("button").contains("Save").click();
+
+    cy.get("h4").contains(mockContact.name);
+  });
+});
+
+export {};
