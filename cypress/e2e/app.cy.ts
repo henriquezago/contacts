@@ -13,11 +13,13 @@ function mockContactUpdate() {
   );
 }
 
+const goToHomePage = () => cy.visit("http://localhost:3000/");
+
 describe("Contacts", () => {
   it("should open a contact's details", () => {
     mockContactsList();
 
-    cy.visit("http://localhost:3000/");
+    goToHomePage();
 
     cy.get("h4").contains("Roosevelt Green").click();
 
@@ -31,7 +33,7 @@ describe("Contacts", () => {
     mockContactsList();
     mockContactUpdate();
 
-    cy.visit("http://localhost:3000/");
+    goToHomePage();
 
     cy.get("h4").contains("Roosevelt Green").click();
     cy.get("button").contains("Edit").click();
