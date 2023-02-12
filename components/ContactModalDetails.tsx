@@ -1,20 +1,22 @@
-import { Image, Text } from "@nextui-org/react";
+import { Button, Image, Text } from "@nextui-org/react";
 import { Contact } from "../pages/api/contacts";
 
 import styles from "../styles/ContactModal.module.scss";
 
 type ContactModalDetailsProps = {
   contact: Contact;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-export default function ContactModalDetails({ contact }: ContactModalDetailsProps) {
+export default function ContactModalDetails({ contact, onDelete, onEdit }: ContactModalDetailsProps) {
   return (
     <>
       <Image src={contact.avatar}
-             alt={`${contact.name}'s avatar image`}
-             objectFit="contain"
-             width={240}
-             height="100%" />
+        alt={`${contact.name}'s avatar image`}
+        objectFit="contain"
+        width={240}
+        height="100%" />
 
       <Text b size={18} className={styles.title}>
         {contact.name}
@@ -33,6 +35,13 @@ export default function ContactModalDetails({ contact }: ContactModalDetailsProp
           <Text b>Created at:</Text> {new Date(contact.createdAt).toDateString()}
         </Text>
       </div>
+
+      <Button auto flat color="error" onPress={onDelete}>
+        Delete
+      </Button>
+      <Button auto onPress={onEdit}>
+        Edit
+      </Button>
     </>
   );
 }
