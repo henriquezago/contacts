@@ -25,6 +25,11 @@ export default function ContactList({ contacts, onEdit, onDelete }: ContactListP
     setIsModalVisible(false);
   }, [onEdit]);
 
+  const deleteContact = useCallback(contactId => {
+    onDelete(contactId);
+    setIsModalVisible(false);
+  }, [])
+
   const contactElements = contacts
     .map((contact) =>
       <Grid xs={2} key={contact.id}>
@@ -41,6 +46,7 @@ export default function ContactList({ contacts, onEdit, onDelete }: ContactListP
       <ContactModal contact={selectedContact}
                     isVisible={isModalVisible}
                     onClose={() => setIsModalVisible(false)}
+                    onDelete={deleteContact}
                     onSave={saveContact} />
     </>
   );
