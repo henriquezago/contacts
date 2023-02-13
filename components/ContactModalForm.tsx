@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { Button, Image, Input, Text } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
+import { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
 
 import { Contact } from "../pages/api/contacts";
+import ImageSelect from "./ImageSelect";
 
 import styles from "../styles/ContactModal.module.scss";
-import ImageSelect from "./ImageSelect";
 
 type ContactModalDetailsProps = {
   contact: Contact;
@@ -12,44 +13,85 @@ type ContactModalDetailsProps = {
   onCancel: () => void;
 }
 
-export default function ContactModalForm({ contact, onSave, onCancel }: ContactModalDetailsProps) {
-  const [avatar, setAvatar] = useState(contact.avatar);
-  const [name, setName] = useState(contact.name);
-  const [email, setEmail] = useState(contact.email);
-  const [phone, setPhone] = useState(contact.phone);
-  const [birthday, setBirthday] = useState(contact.birthday);
+type FormInputs = {
+  name: string;
+  email: string;
+  phone: string;
+  birthday: string;
+};
 
-  const saveHandler = () => {
+export default function ContactModalForm({ contact, onSave, onCancel }: ContactModalDetailsProps) {
+  const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+    defaultValues: {
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone,
+      birthday: contact.birthday,
+    }
+  });
+  const [avatar, setAvatar] = useState(contact.avatar);
+
+  const onSubmit = useCallback((formData: FormInputs) => {
     onSave({
       ...contact,
       avatar,
-      name,
-      email,
-      phone,
-      birthday,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      birthday: formData.birthday,
     });
-  }
+  }, [contact, onSave]);
 
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <ImageSelect url={avatar} onChange={newImage => setAvatar(newImage)} />
 
       <div className={styles.contactDetails}>
-        <Input name="name" label="Name" value={name} onChange={event => setName(event.target.value)} />
+        <Input
+          name="name"
+          label="Name"
+          fullWidth
+          helperText={errors.name?.type === "required" && "Name is required"}
+          status={errors.name && "error" || "default"}
+          {...register("name", { required: true, maxLength: 80 })}
+        />
 
-        <Input label="Email" type="email" value={email} onChange={event => setEmail(event.target.value)} />
+        <Input
+          label="Email"
+          type="email"
+          fullWidth
+          helperText={errors.email?.type === "required" && "Email is required"}
+          status={errors.email && "error" || "default"}
+          {...register("email", { required: true, maxLength: 80 })}
+        />
 
-        <Input label="Phone" type="tel" value={phone} onChange={event => setPhone(event.target.value)} />
+        <Input
+          label="Phone"
+          type="tel"
+          fullWidth
+          helperText={errors.phone?.type === "required" && "Phone is required"}
+          status={errors.phone && "error" || "default"}
+          {...register("phone", { required: true })}
+        />
 
-        <Input label="Birthday" value={birthday} type="date" onChange={event => setBirthday(event.target.value)} />
+        <Input
+          label="Birthday"
+          type="date"
+          fullWidth
+          helperText={errors.email?.type === "required" && "Birthday is required"}
+          status={errors.birthday && "error" || "default"}
+          {...register("birthday", { required: true })}
+        />
       </div>
 
-      <Button auto flat color="error" onPress={onCancel}>
-        Cancel
-      </Button>
-      <Button auto onPress={saveHandler}>
-        Save
-      </Button>
-    </>
+      <div className={styles.formButtons}>
+        <Button auto flat color="error" onPress={onCancel}>
+          Cancel
+        </Button>
+        <Button auto type="submit">
+          Save
+        </Button>
+      </div>
+    </form>
   );
 }
