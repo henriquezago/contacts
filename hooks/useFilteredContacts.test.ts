@@ -1,6 +1,6 @@
 import { expect } from '@jest/globals';
-
 import { act, renderHook } from "@testing-library/react";
+
 import useFilteredContacts from "./useFilteredContacts";
 
 describe("useFilteredContacts", () => {
