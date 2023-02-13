@@ -1,10 +1,12 @@
-import { useCallback, useState } from "react";
 import { Grid } from "@nextui-org/react";
+import { useCallback, useEffect, useState } from "react";
+import { connect } from "react-redux";
 
+import { getContacts } from "../actions";
+import useFilteredContacts from "../hooks/useFilteredContacts";
 import { Contact } from "../pages/api/contacts";
 import ContactCard from "./ContactCard";
 import ContactModal from "./ContactModal";
-import useFilteredContacts from "../hooks/useFilteredContacts";
 import NameFilter from "./NameFilter";
 
 import styles from "../styles/ContactList.module.scss";
@@ -13,13 +15,18 @@ type ContactListProps = {
   contacts: Contact[];
   onEdit: (contact: Contact) => void;
   onDelete: (contactId: string) => void;
+  getContacts: () => void;
 }
 
-export default function ContactList({ contacts, onEdit, onDelete }: ContactListProps) {
+function ContactList({ contacts, onEdit, onDelete, getContacts }: ContactListProps) {
   const [selectedContact, setSelectedContact] = useState<Contact>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { filteredContacts, filter, setFilter } = useFilteredContacts(contacts);
+
+  useEffect(() => {
+    getContacts();
+  }, [getContacts]);
 
   const openModal = useCallback((contact) => {
     setSelectedContact(contact);
@@ -59,3 +66,20 @@ export default function ContactList({ contacts, onEdit, onDelete }: ContactListP
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    contacts: state.contact.contacts,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getContacts: () => dispatch(getContacts()),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ContactList);

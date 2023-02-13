@@ -20,7 +20,7 @@ function Home() {
         <h1>
           Contacts
         </h1>
-        <ContactList contacts={contacts} onEdit={updateContact} onDelete={deleteContact} />
+        <ContactList onEdit={updateContact} onDelete={deleteContact} />
       </main>
     </div>
   );
