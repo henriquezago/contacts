@@ -20,10 +20,10 @@ function NameFilter({ filter, onChange }: NameFilterProps) {
   return (
     <Input
       id="name-filter"
-      type="text"
+      type="search"
       placeholder="Filter by name"
       value={name}
-      // size="lg"
+      size="lg"
       onChange={e => setName(e.target.value)}
     />
   );
