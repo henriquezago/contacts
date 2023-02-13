@@ -9,11 +9,10 @@ type ContactModalProps = {
   contact: Contact;
   isVisible: boolean;
   onClose: () => void;
-  onSave: (contact: Contact) => void;
   onDelete: (contactId: string) => void;
 }
 
-export default function ContactModal({ contact, onClose, isVisible, onSave, onDelete }: ContactModalProps) {
+export default function ContactModal({ contact, onClose, isVisible, onDelete }: ContactModalProps) {
   const [visible, setVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -36,7 +35,7 @@ export default function ContactModal({ contact, onClose, isVisible, onSave, onDe
   };
 
   const modalContent = isEditing ?
-    <ContactModalForm contact={contact} onSave={onSave} onCancel={cancelEditing} /> :
+    <ContactModalForm contact={contact} onCancel={cancelEditing} /> :
     <ContactModalDetails contact={contact} onEdit={startEditing} onDelete={() => onDelete(contact.id)} />;
 
   return (

@@ -55,14 +55,16 @@ function ContactList({ contacts, onEdit, onDelete, getContacts }: ContactListPro
   return (
     <div className={styles.wrapper}>
       <NameFilter filter={filter} onChange={newFilter => setFilter(newFilter)} />
+
       <Grid.Container gap={2} justify="center">
         {contactElements}
       </Grid.Container>
+
       <ContactModal contact={selectedContact}
         isVisible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
         onDelete={deleteContact}
-        onSave={saveContact} />
+      />
     </div>
   );
 }

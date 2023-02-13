@@ -22,10 +22,18 @@ const contactReducer = (state = initialContactState, { type, payload }) => {
         contacts: payload,
       };
 
-    case types.FETCH_CONTACTS_SUCCESS:
+    case types.FETCH_CONTACTS_FAILURE:
       return {
         ...state,
         isLoading: false,
+      };
+
+    case types.UPDATE_CONTACT_SUCCESS:
+      return {
+        ...state,
+        contacts: state.contacts.map((contact) =>
+          contact.id === payload.id ? payload : contact
+        ),
       };
 
     default:

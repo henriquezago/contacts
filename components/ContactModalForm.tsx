@@ -6,6 +6,8 @@ import { Contact } from "../pages/api/contacts";
 import ImageSelect from "./ImageSelect";
 
 import styles from "../styles/ContactModal.module.scss";
+import { updateContact } from "../actions";
+import { connect } from "react-redux";
 
 type ContactModalDetailsProps = {
   contact: Contact;
@@ -20,7 +22,7 @@ type FormInputs = {
   birthday: string;
 };
 
-export default function ContactModalForm({ contact, onSave, onCancel }: ContactModalDetailsProps) {
+function ContactModalForm({ contact, onSave, onCancel }: ContactModalDetailsProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
     defaultValues: {
       name: contact.name,
@@ -40,7 +42,7 @@ export default function ContactModalForm({ contact, onSave, onCancel }: ContactM
       phone: formData.phone,
       birthday: formData.birthday,
     });
-  }, [contact, onSave]);
+  }, [avatar, contact, onSave]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,3 +97,11 @@ export default function ContactModalForm({ contact, onSave, onCancel }: ContactM
     </form>
   );
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSave: contact => dispatch(updateContact(contact)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ContactModalForm);
