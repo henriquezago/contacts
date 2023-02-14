@@ -36,6 +36,12 @@ const contactReducer = (state = initialContactState, { type, payload }) => {
         ),
       };
 
+    case types.DELETE_CONTACT_SUCCESS:
+      return {
+        ...state,
+        contacts: state.contacts.filter((contact) => contact.id !== payload.id),
+      };
+
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import { Grid } from "@nextui-org/react";
+import { Grid, Loading } from "@nextui-org/react";
 import { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
 
@@ -13,12 +13,11 @@ import styles from "../styles/ContactList.module.scss";
 
 type ContactListProps = {
   contacts: Contact[];
-  onEdit: (contact: Contact) => void;
-  onDelete: (contactId: string) => void;
+  isLoading: boolean;
   getContacts: () => void;
 }
 
-function ContactList({ contacts, onEdit, onDelete, getContacts }: ContactListProps) {
+function ContactList({ contacts, isLoading, getContacts }: ContactListProps) {
   const [selectedContact, setSelectedContact] = useState<Contact>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -33,16 +32,6 @@ function ContactList({ contacts, onEdit, onDelete, getContacts }: ContactListPro
     setIsModalVisible(true);
   }, [setSelectedContact, setIsModalVisible]);
 
-  const saveContact = useCallback((contact) => {
-    onEdit(contact);
-    setIsModalVisible(false);
-  }, [onEdit]);
-
-  const deleteContact = useCallback((contactId) => {
-    onDelete(contactId);
-    setIsModalVisible(false);
-  }, [onDelete, setIsModalVisible]);
-
   const contactElements =
     filteredContacts
       .map((contact) =>
@@ -51,6 +40,10 @@ function ContactList({ contacts, onEdit, onDelete, getContacts }: ContactListPro
             onClick={openModal} />
         </Grid>
       );
+
+  if (isLoading) {
+    return <Loading size="lg" />;
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -63,7 +56,6 @@ function ContactList({ contacts, onEdit, onDelete, getContacts }: ContactListPro
       <ContactModal contact={selectedContact}
         isVisible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
-        onDelete={deleteContact}
       />
     </div>
   );
@@ -72,6 +64,7 @@ function ContactList({ contacts, onEdit, onDelete, getContacts }: ContactListPro
 const mapStateToProps = state => {
   return {
     contacts: state.contact.contacts,
+    isLoading: state.contact.isLoading
   }
 }
 

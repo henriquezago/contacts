@@ -1,14 +1,10 @@
 import Head from 'next/head';
-import React from "react";
 
-import useContacts from "../hooks/useContacts";
 import ContactList from "../components/ContactList";
 
 import styles from '../styles/Home.module.css';
 
 function Home() {
-  const { contacts, addContact, updateContact, deleteContact } = useContacts();
-
   return (
     <div>
       <Head>
@@ -20,7 +16,7 @@ function Home() {
         <h1>
           Contacts
         </h1>
-        <ContactList onEdit={updateContact} onDelete={deleteContact} />
+        <ContactList />
       </main>
     </div>
   );

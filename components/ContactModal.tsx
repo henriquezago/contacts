@@ -1,9 +1,11 @@
 import { Modal } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Contact } from "../pages/api/contacts";
 
 import ContactModalDetails from "./ContactModalDetails";
 import ContactModalForm from "./ContactModalForm";
+import { connect } from "react-redux";
+import { deleteContact } from "../actions";
 
 type ContactModalProps = {
   contact: Contact;
@@ -12,31 +14,36 @@ type ContactModalProps = {
   onDelete: (contactId: string) => void;
 }
 
-export default function ContactModal({ contact, onClose, isVisible, onDelete }: ContactModalProps) {
+function ContactModal({ contact, onClose, isVisible, onDelete }: ContactModalProps) {
   const [visible, setVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  const startEditing = () => {
-    setIsEditing(true);
-  }
-
-  const cancelEditing = () => {
-    setIsEditing(false);
-  }
 
   useEffect(() => {
     setVisible(isVisible);
   }, [isVisible]);
 
-  const closeHandler = () => {
+  const startEditing = useCallback(() => {
+    setIsEditing(true);
+  }, [setIsEditing]);
+
+  const cancelEditing = () => {
+    setIsEditing(false);
+  }
+
+  const closeHandler = useCallback(() => {
     setIsEditing(false);
     setVisible(false);
     onClose();
-  };
+  }, [setIsEditing, setVisible, onClose]);
+
+  const deleteContact = useCallback(() => {
+    onDelete(contact.id);
+    closeHandler();
+  }, [onDelete, closeHandler]);
 
   const modalContent = isEditing ?
-    <ContactModalForm contact={contact} onCancel={cancelEditing} /> :
-    <ContactModalDetails contact={contact} onEdit={startEditing} onDelete={() => onDelete(contact.id)} />;
+    <ContactModalForm contact={contact} onCancel={cancelEditing} onClose={onClose} /> :
+    <ContactModalDetails contact={contact} onEdit={startEditing} onDelete={deleteContact} />;
 
   return (
     <Modal closeButton
@@ -49,3 +56,11 @@ export default function ContactModal({ contact, onClose, isVisible, onDelete }: 
     </Modal>
   );
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onDelete: (contactId) => dispatch(deleteContact(contactId))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ContactModal);

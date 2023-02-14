@@ -5,6 +5,9 @@ import {
   UPDATE_CONTACT_SUCCESS,
   UPDATE_CONTACT_STARTED,
   UPDATE_CONTACT_FAILURE,
+  DELETE_CONTACT_SUCCESS,
+  DELETE_CONTACT_STARTED,
+  DELETE_CONTACT_FAILURE,
 } from "./types";
 
 import axios from "axios";
@@ -64,5 +67,36 @@ const updateContactStarted = () => ({
 
 const updateContactFailure = (error) => ({
   type: UPDATE_CONTACT_FAILURE,
+  payload: error,
+});
+
+export const deleteContact = (id) => {
+  return (dispatch) => {
+    dispatch(deleteContactStarted());
+
+    axios
+      .delete(`/api/contacts?id=${id}`)
+      .then(() => {
+        dispatch(deleteContactSuccess(id));
+      })
+      .catch((err) => {
+        dispatch(deleteContactFailure(err.message));
+      });
+  };
+};
+
+const deleteContactSuccess = (contactId) => ({
+  type: DELETE_CONTACT_SUCCESS,
+  payload: {
+    id: contactId,
+  },
+});
+
+const deleteContactStarted = () => ({
+  type: DELETE_CONTACT_STARTED,
+});
+
+const deleteContactFailure = (error) => ({
+  type: DELETE_CONTACT_FAILURE,
   payload: error,
 });
