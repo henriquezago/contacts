@@ -8,10 +8,12 @@ type NameFilterProps = {
   onChange: (name: string) => void;
 }
 
+export const DEBOUNCE_DELAY = 300;
+
 function NameFilter({ filter, onChange }: NameFilterProps) {
   const [name, setName] = useState<string>(filter);
 
-  const debouncedName = useDebounce(name, 300);
+  const debouncedName = useDebounce(name, DEBOUNCE_DELAY);
 
   useEffect(() => {
     onChange(debouncedName);
@@ -21,6 +23,7 @@ function NameFilter({ filter, onChange }: NameFilterProps) {
     <Input
       id="name-filter"
       type="search"
+      aria-label="Filter contacts by name"
       placeholder="Filter by name"
       value={name}
       size="lg"

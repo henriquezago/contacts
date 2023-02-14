@@ -1,18 +1,19 @@
 import { Button, Input } from "@nextui-org/react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
+import { connect } from "react-redux";
 
+import { updateContact } from "../actions";
 import { Contact } from "../pages/api/contacts";
 import ImageSelect from "./ImageSelect";
 
 import styles from "../styles/ContactModal.module.scss";
-import { updateContact } from "../actions";
-import { connect } from "react-redux";
 
 type ContactModalDetailsProps = {
   contact: Contact;
   onSave: (contact: Contact) => void;
   onCancel: () => void;
+  onClose: () => void;
 }
 
 type FormInputs = {
@@ -22,7 +23,9 @@ type FormInputs = {
   birthday: string;
 };
 
-function ContactModalForm({ contact, onSave, onCancel }: ContactModalDetailsProps) {
+function ContactModalForm({ contact, onSave, onClose, onCancel }: ContactModalDetailsProps) {
+  const [avatar, setAvatar] = useState(contact.avatar);
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
     defaultValues: {
       name: contact.name,
@@ -31,7 +34,6 @@ function ContactModalForm({ contact, onSave, onCancel }: ContactModalDetailsProp
       birthday: contact.birthday,
     }
   });
-  const [avatar, setAvatar] = useState(contact.avatar);
 
   const onSubmit = useCallback((formData: FormInputs) => {
     onSave({
@@ -42,6 +44,7 @@ function ContactModalForm({ contact, onSave, onCancel }: ContactModalDetailsProp
       phone: formData.phone,
       birthday: formData.birthday,
     });
+    onClose();
   }, [avatar, contact, onSave]);
 
   return (

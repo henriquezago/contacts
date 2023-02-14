@@ -1,5 +1,5 @@
 import { expect } from "@jest/globals";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 
 import useDebounce from "./useDebounce";
 
@@ -52,7 +52,7 @@ describe("useDebounce", () => {
     expect(result.current).toBe("test");
   });
 
-  it.skip("should return new value after delay", () => {
+  it("should return new value after delay", () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
       { initialProps: { value: "test", delay: 100 } }
@@ -61,7 +61,10 @@ describe("useDebounce", () => {
     expect(result.current).toBe("test");
 
     rerender({ value: "test2", delay: 100 });
-    jest.advanceTimersByTime(101);
+
+    act(() => {
+      jest.advanceTimersByTime(101);
+    });
 
     expect(result.current).toBe("test2");
   });

@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactModal renders 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body
+    style="overflow: hidden;"
+  >
+    <div />
+    <div />
+    <div
+      id="nextui-modal"
+    >
+      <div
+        aria-hidden="true"
+        class="nextui-c-csEDlc nextui-c-csEDlc-ivNdeP-css nextui-backdrop nextui-backdrop--open nextui-backdrop-wrapper-enter"
+        data-state="open"
+        role="button"
+        tabindex="-1"
+      >
+        <div
+          class="nextui-c-dTfjaK nextui-c-dTfjaK-flgyXy-blur-false nextui-c-dTfjaK-juipjK-animated-true nextui-backdrop-layer nextui-backdrop-layer-default"
+        />
+        <div
+          class="nextui-c-grJsex nextui-c-grJsex-dKXqQt-animated-true nextui-c-grJsex-ikUaMfZ-css nextui-backdrop-content"
+        >
+          <section
+            aria-labelledby="modal-title"
+            aria-modal="true"
+            class="nextui-c-cgxxHA nextui-c-cgxxHA-eYceDz-fullScreen-false nextui-c-cgxxHA-iNZaNK-closeButton-true nextui-modal nextui-modal--open nextui-modal-with-close-button nextui-modal-wrapper-enter"
+            data-state="open"
+            role="dialog"
+            tabindex="-1"
+          >
+            <div
+              aria-hidden="true"
+              class="nextui-c-goIZPr nextui-modal-hide-tab"
+              role="button"
+              tabindex="0"
+            />
+            <button
+              aria-label="Close"
+              class="nextui-c-hdxYb nextui-c-huiNHE nextui-modal-close-icon"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="nextui-modal-close-icon-svg"
+                fill="none"
+                height="18"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="18"
+              >
+                <path
+                  d="M18 6L6 18M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div
+              class="nextui-c-iDzHRq nextui-c-iDzHRq-drcJWu-autoMargin-true nextui-modal-body nextui-modal-body-auto-margin"
+            >
+              <div
+                class="nextui-c-iVzbCs nextui-c-iVzbCs-bDGmTT-ready-true nextui-c-iVzbCs-igHaghq-css nextui-image-container nextui-image--ready"
+                data-state="ready"
+              >
+                <img
+                  alt="John Doe's avatar image"
+                  class="nextui-c-kbhVdb nextui-c-kbhVdb-ifRKYWh-css nextui-image"
+                  data-state="ready"
+                  height="100%"
+                  src=""
+                  width="240"
+                />
+              </div>
+              <b
+                class="nextui-c-PJLV nextui-c-PJLV-ifmXeqi-css title"
+              >
+                John Doe
+              </b>
+              <div
+                class="contactDetails"
+              >
+                <p
+                  class="nextui-c-PJLV nextui-c-PJLV-iigqkie-css"
+                >
+                  <b
+                    class="nextui-c-PJLV nextui-c-PJLV-ijnlmIz-css"
+                  >
+                    Phone:
+                  </b>
+                   
+                </p>
+                <p
+                  class="nextui-c-PJLV nextui-c-PJLV-iigqkie-css"
+                >
+                  <b
+                    class="nextui-c-PJLV nextui-c-PJLV-ijnlmIz-css"
+                  >
+                    Email:
+                  </b>
+                   
+                </p>
+                <p
+                  class="nextui-c-PJLV nextui-c-PJLV-iigqkie-css"
+                >
+                  <b
+                    class="nextui-c-PJLV nextui-c-PJLV-ijnlmIz-css"
+                  >
+                    Birthday:
+                  </b>
+                   
+                </p>
+                <p
+                  class="nextui-c-PJLV nextui-c-PJLV-iigqkie-css"
+                >
+                  <b
+                    class="nextui-c-PJLV nextui-c-PJLV-ijnlmIz-css"
+                  >
+                    Created at:
+                  </b>
+                   
+                  Invalid Date
+                </p>
+              </div>
+              <button
+                class="nextui-c-iWjDFM nextui-c-gulvcB nextui-c-iWjDFM-kjxUWi-color-error nextui-c-iWjDFM-gkIlwi-size-md nextui-c-iWjDFM-cwXrJp-borderWeight-normal nextui-c-iWjDFM-cyFBRX-flat-true nextui-c-iWjDFM-exaRme-auto-true nextui-c-iWjDFM-gglxka-cv nextui-c-iWjDFM-kLlQSF-cv nextui-c-iWjDFM-iPJLV-css nextui-button nextui-button--ready"
+                data-state="ready"
+                type="button"
+              >
+                <span
+                  class="nextui-button-text"
+                >
+                  Delete
+                </span>
+              </button>
+              <button
+                class="nextui-c-iWjDFM nextui-c-gulvcB nextui-c-iWjDFM-hkKLfu-color-default nextui-c-iWjDFM-gkIlwi-size-md nextui-c-iWjDFM-cwXrJp-borderWeight-normal nextui-c-iWjDFM-exaRme-auto-true nextui-c-iWjDFM-gglxka-cv nextui-c-iWjDFM-iPJLV-css nextui-button nextui-button--ready"
+                data-state="ready"
+                type="button"
+              >
+                <span
+                  class="nextui-button-text"
+                >
+                  Edit
+                </span>
+              </button>
+            </div>
+            <div
+              aria-hidden="true"
+              class="nextui-c-goIZPr nextui-modal-hide-tab"
+              role="button"
+              tabindex="0"
+            />
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div />,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
