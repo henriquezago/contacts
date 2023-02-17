@@ -3,7 +3,7 @@ name: Code Testing
 on: [push]
 
 jobs:
-  test:
+  jest-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,28 +15,23 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
       - name: Install Dependencies
         run: yarn install
 
       - name: Jest run
         run: yarn test:ci
 
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Cypress run
         uses: cypress-io/github-action@v5.0.9
         with:
-          project: ./cypress
+          project: ./
           browser: chrome
           build: yarn build
           start: yarn start
